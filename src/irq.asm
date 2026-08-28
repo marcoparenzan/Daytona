@@ -27,6 +27,7 @@ init:
     jsr render_test_pattern
     jsr draw_static_hud
     jsr player_init
+    jsr scroll_init
 
     lda vic_controlv
     and #%01111111      ; bit 7 a 0 -> riga raster su 8 bit (< 256)
@@ -51,6 +52,7 @@ irq_handler:
     inc vic_cborder      ; bordo cambia colore ogni frame: prova visiva che l'IRQ e' stabile
     jsr read_input
     jsr update_physics
+    jsr update_scroll
     lda #$ff
     sta vic_irq           ; ack IRQ VIC-II (azzera tutti i flag pendenti)
     jmp kernal_irq_exit    ; rientra nella coda standard del KERNAL (ripristina registri, RTI)
