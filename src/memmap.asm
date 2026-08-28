@@ -8,6 +8,7 @@
 !source <cbm/c64/vic.a>
 !source <cbm/c64/cia1.a>
 !source <cbm/c64/cia2.a>
+!source <cbm/c64/sid.a>
 
 ; Non presenti in ACME_Lib per il C64 (sono indirizzi RAM/ROM del sistema operativo,
 ; non registri hardware): li definiamo qui.

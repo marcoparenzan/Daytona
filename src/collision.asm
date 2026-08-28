@@ -13,6 +13,7 @@ check_collision:
     lda vic_ss_collided
     and #%00000001
     beq check_collision_done
+    jsr sfx_trigger_crash
     jsr enter_pit
 check_collision_done:
     rts

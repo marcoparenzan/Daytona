@@ -1,5 +1,7 @@
 # Daytona (C64)
 
+![Copertina Daytona](daytona.png)
+
 Remake in salsa endurance/prototipi di **Le Mans** (Commodore 64, 1982, HAL Laboratory).
 Vista dall'alto, scroll verticale, sorpassi, box, punteggio a tempo — vedi [ARCHITECTURE.md](ARCHITECTURE.md) per il piano completo (meccaniche, memory map, roadmap).
 

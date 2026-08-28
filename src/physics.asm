@@ -9,7 +9,8 @@ PLAYER_MAX_SPEED  = 63
 
 update_physics:
     lda zp_pit_state
-    bne physics_check_fire  ; in riparazione: sterzo ignorato (X resta fissato sulla corsia box)
+    bne physics_repairing   ; in riparazione: sterzo E accelerazione ignorati (auto ferma, motore
+                             ; a zero -- vedi pitstop.asm che azzera zp_player_speed all'ingresso)
 
     lda zp_joy_state
     and #%00000100          ; bit2 = sinistra (0 = premuto)
@@ -54,4 +55,7 @@ physics_decel:
 physics_apply:
     lda zp_player_x
     sta vic_xs0
+    rts
+
+physics_repairing:
     rts

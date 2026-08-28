@@ -26,6 +26,7 @@ enter_pit:
     bne enter_pit_already   ; gia' in riparazione: ignora ulteriori urti
     lda #$00
     sta zp_overtake_streak  ; il crash azzera la striscia (non il totale sorpassi, vedi score.asm)
+    sta zp_player_speed     ; l'auto si e' fermata: motore a zero (silenzioso, vedi sfx.asm)
     lda #STATE_REPAIRING
     sta zp_pit_state
     lda #REPAIR_TIME
@@ -35,6 +36,7 @@ enter_pit:
     sta vic_xs0
     lda #viccolor_ORANGE
     sta vic_cs0
+    jsr sfx_trigger_pit
 enter_pit_already:
     rts
 

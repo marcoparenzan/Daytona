@@ -106,8 +106,8 @@ Zero page (range da confermare libero da conflitti KERNAL/BASIC, indicativamente
 8. ✅ Collisioni player-traffico -- via `$D01E` hardware, feedback visivo (colore sprite) con decadimento a tempo, verificato via monitor VICE (trigger + decay confermati)
 9. ✅ Stato box -- ingresso forzato una tantum (non risucchio continuo), sterzo disabilitato durante la riparazione (~2.4s), ripartenza pulita verificata via monitor VICE (nessun residuo dopo il rilascio del controllo)
 10. ✅ Punteggio/timer + HUD live -- BCD per punteggio/timer (display diretto senza conversione), streak sorpassi con bonus +1000/10, soglie +20s ogni 20000 punti, tutto verificato via monitor VICE (memoria e schermo coerenti)
-11. SFX dirette SID ← **stato attuale**
-12. Hook player GoatTracker nell'IRQ
+11. ✅ SFX dirette SID -- motore (voce 1, frequenza ~75-300Hz legata a zp_player_speed, ritarata dopo test ad orecchio: la prima versione superava 1000Hz), crash (voce 2, rumore), box (voce 3, tono). Motore azzerato/silenzioso durante la riparazione (crash ferma l'auto: sterzo E accelerazione disabilitati, non solo lo sterzo). Confermato ad orecchio dall'utente.
+12. Hook player GoatTracker nell'IRQ ← **stato attuale**
 
 ### Fase 2+ (fuori scope MVP)
 

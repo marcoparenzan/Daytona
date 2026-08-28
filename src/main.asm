@@ -19,3 +19,4 @@
 !source "collision.asm"
 !source "pitstop.asm"
 !source "score.asm"
+!source "sfx.asm"
