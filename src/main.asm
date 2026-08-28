@@ -15,3 +15,7 @@
 !source "physics.asm"
 !source "player.asm"
 !source "track.asm"
+!source "traffic.asm"
+!source "collision.asm"
+!source "pitstop.asm"
+!source "score.asm"

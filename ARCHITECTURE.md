@@ -97,15 +97,15 @@ Zero page (range da confermare libero da conflitti KERNAL/BASIC, indicativamente
 
 1. ✅ Bring-up toolchain (ACME, VICE, Petmate 9, GoatTracker scaricati e verificati; CharPad da scaricare a mano)
 2. ✅ Skeleton boot (stub BASIC + IRQ raster stabile) -- verificato via monitor remoto VICE (bordo che cicla stabilmente, PC fermo in `main_loop`, nessun freeze/trap KERNAL)
-3. ✅ Charset custom + pattern statico di verifica -- font ROM copiato in RAM + 5 tile patchate (road/curb/grass/pit/finish, codici 128-132), verificato via dump memoria VICE ← **stato attuale**
+3. ✅ Charset custom + pattern statico di verifica -- font ROM copiato in RAM + 5 tile patchate (road/curb/grass/pit/finish, codici 128-132), verificato via dump memoria VICE
 4. ✅ HUD statico -- etichette SPEED/SCORE/TIME/CARS su colonna 34, righe 2/6/10/14, verificate via dump memoria VICE
 5. ✅ Sprite player + input joystick + fisica base -- sprite segnaposto hi-res, sterzo/velocita' verificati via monitor VICE (poke su `$DC00` -> clamp esatto a `PLAYER_MIN_X`)
-6. Scroll verticale pista ← **stato attuale**
-7. Spawn/movimento traffico
-8. Collisioni player-traffico
-9. Stato box (crash → riparazione → ripartenza pulita)
-10. Punteggio/timer + HUD live
-11. SFX dirette SID
+6. ✅ Scroll verticale pista -- fine-scroll + shift righe, verificato via monitor VICE e conferma visiva dell'utente (direzione corretta dopo fix)
+7. ✅ Spawn/movimento traffico -- pool 4 sprite, corsie fisse, velocita' relativa al giocatore con clamp (altrimenti troppo veloce rispetto allo scroll pista), confermato visivamente dall'utente
+8. ✅ Collisioni player-traffico -- via `$D01E` hardware, feedback visivo (colore sprite) con decadimento a tempo, verificato via monitor VICE (trigger + decay confermati)
+9. ✅ Stato box -- ingresso forzato una tantum (non risucchio continuo), sterzo disabilitato durante la riparazione (~2.4s), ripartenza pulita verificata via monitor VICE (nessun residuo dopo il rilascio del controllo)
+10. ✅ Punteggio/timer + HUD live -- BCD per punteggio/timer (display diretto senza conversione), streak sorpassi con bonus +1000/10, soglie +20s ogni 20000 punti, tutto verificato via monitor VICE (memoria e schermo coerenti)
+11. SFX dirette SID ← **stato attuale**
 12. Hook player GoatTracker nell'IRQ
 
 ### Fase 2+ (fuori scope MVP)

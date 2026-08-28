@@ -28,6 +28,9 @@ init:
     jsr draw_static_hud
     jsr player_init
     jsr scroll_init
+    jsr traffic_init
+    jsr pitstop_init
+    jsr score_init
 
     lda vic_controlv
     and #%01111111      ; bit 7 a 0 -> riga raster su 8 bit (< 256)
@@ -53,6 +56,11 @@ irq_handler:
     jsr read_input
     jsr update_physics
     jsr update_scroll
+    jsr update_traffic
+    jsr check_collision
+    jsr update_pitstop
+    jsr update_timer
+    jsr update_hud_values
     lda #$ff
     sta vic_irq           ; ack IRQ VIC-II (azzera tutti i flag pendenti)
     jmp kernal_irq_exit    ; rientra nella coda standard del KERNAL (ripristina registri, RTI)

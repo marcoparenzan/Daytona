@@ -21,3 +21,26 @@ zp_scroll_src_hi    = $f3
 zp_scroll_dst_lo    = $f4   ; track.asm: puntatore riga destinazione durante lo shift (byte alto a $f5)
 zp_scroll_dst_hi    = $f5
 zp_fine_scroll      = $f6   ; track.asm: passo di fine-scroll corrente (0-7), specchio dei bit0-2 di vic_controlv
+zp_traffic_spawn_timer = $fa   ; traffic.asm: contatore frame verso il prossimo tentativo di spawn
+
+; $f0-$fe sono ormai tutti occupati: si prosegue nella zona bassa ($02+), sicura
+; per un programma che non richiama piu' BASIC/KERNAL (vedi nota in cima al file).
+zp_pit_state = $02   ; pitstop.asm: STATE_NORMAL o STATE_REPAIRING
+zp_pit_timer = $03   ; pitstop.asm: frame rimanenti di riparazione
+
+; score.asm -- punteggio/timer in BCD (un nibble = una cifra, comodo da stampare)
+zp_score_lo         = $04
+zp_score_mid        = $05
+zp_score_hi         = $06
+zp_overtake_streak  = $07   ; sorpassi consecutivi senza crash (azzerato in pitstop.asm)
+zp_overtake_total   = $08   ; sorpassi totali di sessione (per l'HUD "CARS")
+zp_threshold_lo     = $09   ; prossima soglia punteggio per il bonus tempo, BCD
+zp_threshold_mid    = $0a
+zp_threshold_hi     = $0b
+zp_timer_seconds    = $0c   ; BCD, conto alla rovescia
+zp_timer_frames     = $0d   ; frame dall'ultimo secondo scalato
+
+; hud.asm -- scratch per la conversione binario -> cifre decimali (speed, cars)
+zp_conv_hundreds = $0e
+zp_conv_tens     = $0f
+zp_conv_ones     = $10

@@ -61,8 +61,10 @@ $genDir = Join-Path $root 'assets\gen'
 # directory indicata dalla variabile d'ambiente ACME, non accanto all'eseguibile.
 $env:ACME = Join-Path (Split-Path -Parent $acme.FullName) 'ACME_Lib'
 
+$labels = Join-Path $buildDir 'daytona.vice-labels.txt'
+
 Write-Output "Assemblo $srcMain -> $prg"
-& $acme.FullName -f cbm -o $prg -I $srcDir -I $genDir $srcMain
+& $acme.FullName -f cbm -o $prg -I $srcDir -I $genDir --vicelabels $labels $srcMain
 if ($LASTEXITCODE -ne 0) {
     throw "ACME ha fallito (exit code $LASTEXITCODE)."
 }

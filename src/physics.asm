@@ -8,6 +8,9 @@ PLAYER_STEP       = 2
 PLAYER_MAX_SPEED  = 63
 
 update_physics:
+    lda zp_pit_state
+    bne physics_check_fire  ; in riparazione: sterzo ignorato (X resta fissato sulla corsia box)
+
     lda zp_joy_state
     and #%00000100          ; bit2 = sinistra (0 = premuto)
     bne physics_check_right

@@ -7,8 +7,9 @@
 ; Velocita' guidata da zp_player_speed tramite un accumulatore stile
 ; Bresenham: piu' e' alta, piu' spesso scatta un tick di scroll.
 ;
-; Pista MVP: dritta, senza corsia box ne' variazioni (arrivano nei task 7/9).
-; colonne 0-1 erba, 2 cordolo, 3-30 strada, 31 cordolo, 32-33 erba.
+; Pista MVP: dritta, senza variazioni di tracciato (curve ecc. fuori scope MVP).
+; colonne 0-1 erba, 2 cordolo, 3 corsia box (fissa, vedi pitstop.asm),
+; 4-30 strada, 31 cordolo, 32-33 erba.
 
 TRACK_WIDTH = 34
 TRACK_ROWS  = 25
@@ -21,9 +22,12 @@ scroll_init:
     rts
 
 update_scroll:
-    lda zp_scroll_accum
+    lda zp_player_speed
+    asl
+    asl                     ; velocita' x4: a piena velocita' l'accumulatore puro dava
+                            ; solo ~1.5 righe/sec, troppo lento per una corsa
     clc
-    adc zp_player_speed
+    adc zp_scroll_accum
     sta zp_scroll_accum
     bcc update_scroll_apply
     jsr scroll_tick
@@ -46,6 +50,7 @@ scroll_coarse:
     sta zp_fine_scroll
     jsr shift_rows_down
     jsr fill_new_top_row
+    jsr score_add_meter
     rts
 
 ; Copia la riga 23 nella 24, poi 22->23, ... fino a 0->1 (24 righe, colonne
@@ -105,7 +110,10 @@ fill_top_grass_l:
     lda #TILE_CURB
     sta screen_base + 2
 
-    ldy #3
+    lda #TILE_PIT
+    sta screen_base + 3     ; colonna 3 = corsia box fissa (vedi pitstop.asm, PIT_LANE_X)
+
+    ldy #4
 fill_top_road:
     lda #TILE_ROAD
     sta screen_base + 0, y
