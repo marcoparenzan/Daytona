@@ -32,6 +32,7 @@ init:
     jsr pitstop_init
     jsr score_init
     jsr sfx_init
+    jsr music_init
 
     lda vic_controlv
     and #%01111111      ; bit 7 a 0 -> riga raster su 8 bit (< 256)
@@ -63,6 +64,7 @@ irq_handler:
     jsr update_timer
     jsr update_hud_values
     jsr update_engine
+    jsr music_play   ; attivo su scelta dell'utente -- condivide le voci SID con sfx.asm, vedi music.asm
     lda #$ff
     sta vic_irq           ; ack IRQ VIC-II (azzera tutti i flag pendenti)
     jmp kernal_irq_exit    ; rientra nella coda standard del KERNAL (ripristina registri, RTI)

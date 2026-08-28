@@ -107,14 +107,18 @@ Zero page (range da confermare libero da conflitti KERNAL/BASIC, indicativamente
 9. ✅ Stato box -- ingresso forzato una tantum (non risucchio continuo), sterzo disabilitato durante la riparazione (~2.4s), ripartenza pulita verificata via monitor VICE (nessun residuo dopo il rilascio del controllo)
 10. ✅ Punteggio/timer + HUD live -- BCD per punteggio/timer (display diretto senza conversione), streak sorpassi con bonus +1000/10, soglie +20s ogni 20000 punti, tutto verificato via monitor VICE (memoria e schermo coerenti)
 11. ✅ SFX dirette SID -- motore (voce 1, frequenza ~75-300Hz legata a zp_player_speed, ritarata dopo test ad orecchio: la prima versione superava 1000Hz), crash (voce 2, rumore), box (voce 3, tono). Motore azzerato/silenzioso durante la riparazione (crash ferma l'auto: sterzo E accelerazione disabilitati, non solo lo sterzo). Confermato ad orecchio dall'utente.
-12. Hook player GoatTracker nell'IRQ ← **stato attuale**
+12. ✅ Hook player GoatTracker nell'IRQ -- binario rilocato via `gt2reloc.exe` (il sorgente `player.s` usa un altro assemblatore, non portabile), incluso a `$4000` via `!binary`. Confermato ad orecchio dall'utente con un brano di esempio (non composto per Daytona). Su scelta esplicita dell'utente `music_play` è attivo ogni frame, condividendo le voci SID con `sfx.asm` (possibile interferenza, accettata).
+
+**Roadmap MVP completa (12/12).**
 
 ### Fase 2+ (fuori scope MVP)
 
 - Stage notte (fari, visibilità ridotta)
 - Stage pioggia/neve-ghiaccio (aderenza alterata)
 - Supporto paddle
-- Brano musicale composto (oltre all'hook player già presente)
+- Brano musicale vero composto per Daytona (sostituisce `assets/src/music/placeholder.sng`, un esempio di GoatTracker)
+- Voci SID dedicate per musica vs SFX, per eliminare l'interferenza attualmente accettata
+- Split raster orizzontale vero per uno scroll pista fluido senza compromettere la stabilità dell'HUD (vedi par. 6)
 - Valutazione upgrade a CharPad per il workflow grafico
 
 ## 8. Verifica

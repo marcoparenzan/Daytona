@@ -44,3 +44,6 @@ zp_timer_frames     = $0d   ; frame dall'ultimo secondo scalato
 zp_conv_hundreds = $0e
 zp_conv_tens     = $0f
 zp_conv_ones     = $10
+
+; $e0/$e1 riservati al player GoatTracker (music.asm, opzione -ZE0 di gt2reloc) --
+; non riutilizzare per altre variabili.

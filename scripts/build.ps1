@@ -45,6 +45,27 @@ else {
     Write-Output 'Nessun asset sorgente in assets/src ancora: salto la generazione (ok per lo skeleton boot).'
 }
 
+# 1b. Rigenera la musica (assets/src/music/*.sng -> assets/gen/music.bin) con
+# il relocator di GoatTracker, se c'e' un sorgente piu' recente dell'output.
+$musicSrcDir = Join-Path $root 'assets\src\music'
+$sng = Get-ChildItem -Path $musicSrcDir -Filter '*.sng' -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($sng) {
+    $musicBin = Join-Path $root 'assets\gen\music.bin'
+    $needsRebuild = $Force -or -not (Test-Path $musicBin) -or ($sng.LastWriteTimeUtc -gt (Get-Item $musicBin).LastWriteTimeUtc)
+    if ($needsRebuild) {
+        $gt2reloc = Get-ChildItem -Path (Join-Path $root 'tools\goattracker') -Filter 'gt2reloc.exe' -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+        if (-not $gt2reloc) {
+            throw "gt2reloc.exe non trovato in tools/goattracker. Esegui prima .\scripts\setup-tools.ps1"
+        }
+        New-Item -ItemType Directory -Force -Path (Join-Path $root 'assets\gen') | Out-Null
+        Write-Output "Rilocalizzo musica: $($sng.Name) -> assets/gen/music.bin"
+        & $gt2reloc.FullName $sng.FullName $musicBin -W40 -ZE0 -P
+        if ($LASTEXITCODE -ne 0) {
+            throw "gt2reloc ha fallito (exit code $LASTEXITCODE)."
+        }
+    }
+}
+
 # 2. Assembla con ACME
 $acme = Get-ChildItem -Path $acmeDir -Filter 'acme.exe' -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
 if (-not $acme) {
