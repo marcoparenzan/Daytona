@@ -1,0 +1,18 @@
+# Toolchain scaricato da scripts/setup-tools.ps1 (non versionato)
+tools/
+
+# Output di build
+build/
+
+# Asset generati dagli script (rigenerabili da assets/src)
+assets/gen/
+
+# Download temporanei
+scratch/
+
+# Python
+__pycache__/
+*.pyc
+
+# VICE
+*.vsf
