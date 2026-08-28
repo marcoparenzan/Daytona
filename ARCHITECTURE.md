@@ -92,6 +92,7 @@ Zero page (range da confermare libero da conflitti KERNAL/BASIC, indicativamente
   3. Lettura joystick porta 2 (`$DC00`, bit0=up bit1=down bit2=left bit3=right bit4=fire, active-low)
   4. Fisica/scroll/traffico/collisioni/punteggio/HUD
   5. `RTI`
+- **Scroll senza fine-scroll a sotto-pixel**: i bit 0-2 di `$D011` (Y-scroll) spostano verticalmente *tutta* la riga video, non solo alcune colonne — quindi non si possono usare per scorrere la pista (colonne 0-33) lasciando l'HUD (colonne 34-39, stessa riga) perfettamente ferma. Un vero split lo richiederebbe un cambio di `$D011` a metà riga raster, con temporizzazione a livello di singolo ciclo (tecnica avanzata, fragile per l'MVP). Scelta fatta: scroll a scatti interi di una riga carattere (8px) via shift di `screen_base`, `$D011` mai toccato. Costo: la pista scorre "a scatti" invece che fluida; beneficio: l'HUD non balla mai. Rivedibile in Fase 2+ con uno split orizzontale vero, se la fluidità diventa una priorità.
 
 ## 7. Roadmap MVP
 

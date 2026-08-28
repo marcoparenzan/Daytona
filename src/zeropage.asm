@@ -20,7 +20,7 @@ zp_scroll_src_lo    = $f2   ; track.asm: puntatore riga sorgente durante lo shif
 zp_scroll_src_hi    = $f3
 zp_scroll_dst_lo    = $f4   ; track.asm: puntatore riga destinazione durante lo shift (byte alto a $f5)
 zp_scroll_dst_hi    = $f5
-zp_fine_scroll      = $f6   ; track.asm: passo di fine-scroll corrente (0-7), specchio dei bit0-2 di vic_controlv
+; $f6 libero (era zp_fine_scroll, rimosso: niente piu' scroll a sotto-pixel, vedi track.asm)
 zp_traffic_spawn_timer = $fa   ; traffic.asm: contatore frame verso il prossimo tentativo di spawn
 
 ; $f0-$fe sono ormai tutti occupati: si prosegue nella zona bassa ($02+), sicura
